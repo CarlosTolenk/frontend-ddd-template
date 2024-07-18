@@ -22,7 +22,7 @@ export const CoursesContextProvider = ({
 
 	async function createCourse({ title, imageUrl }: { title: string; imageUrl: string }) {
 		const courseCreator = new CourseCreator(repository);
-		const uuid = (uuidv4 as () => string)(); // TODO: check uuid types
+		const uuid = (uuidv4 as () => string)();
 
 		await courseCreator.create(uuid, title, imageUrl);
 		getCourses();
