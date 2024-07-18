@@ -1,23 +1,18 @@
-import React from 'react';
+import { LocalStorageCourseRepository } from "./modules/courses/infrastructure/LocalStorageCourseRepository";
+import { CoursesContextProvider } from "./sections/courses/CoursesContext";
+import { CoursesList } from "./sections/courses/CoursesList";
+import { CreateCourseForm } from "./sections/courses/CreateCourseForm";
 
-function App() {
+export function App() {
+  const repository = new LocalStorageCourseRepository();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <CoursesContextProvider repository={repository}>
+        <div className="App">
+          <h1>🍍 Codely</h1>
+          <CoursesList />
+          <CreateCourseForm />
+        </div>
+      </CoursesContextProvider>
   );
 }
-
-export default App;
