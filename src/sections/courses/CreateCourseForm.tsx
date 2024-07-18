@@ -26,8 +26,8 @@ export function CreateCourseForm() {
         });
     }, [formData]);
 
-    const handleSubmit = async (ev: React.FormEvent) => {
-        ev.preventDefault();
+    const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
 
         await submitForm(formData);
     };
@@ -51,11 +51,7 @@ export function CreateCourseForm() {
                 <section id="order" className="">
                     <h2>🧑‍🏫 Create new course</h2>
 
-                    <form
-                        onSubmit={(ev) => {
-                            handleSubmit(ev);
-                        }}
-                    >
+                    <form onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="title">Course title</label>
                             <input
@@ -63,8 +59,8 @@ export function CreateCourseForm() {
                                 name="title"
                                 type="text"
                                 value={formData.title}
-                                onChange={(ev) => {
-                                    updateForm({title: ev.target.value});
+                                onChange={(event) => {
+                                    updateForm({title: event.target.value});
                                 }}
                             />
                             {formData.title && errors.title && (
@@ -78,8 +74,8 @@ export function CreateCourseForm() {
                                 name="imageUrl"
                                 type="text"
                                 value={formData.imageUrl}
-                                onChange={(ev) => {
-                                    updateForm({imageUrl: ev.target.value});
+                                onChange={(event) => {
+                                    updateForm({imageUrl: event.target.value});
                                 }}
                             />
                             {formData.imageUrl && errors.imageUrl && (
