@@ -38,6 +38,12 @@ export function CreateCourseForm() {
 		});
 	}, [formData]);
 
+	const handlerUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		updateForm({[name]: value});
+	}
+
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 
@@ -71,9 +77,7 @@ export function CreateCourseForm() {
 								name="title"
 								type="text"
 								value={formData.title}
-								onChange={(event) => {
-									updateForm({title: event.target.value});
-								}}
+								onChange={handlerUpdate}
 							/>
 							{formData.title && errors.title && (
 								<div style={{color: "tomato"}}>{errors.title}</div>
@@ -86,9 +90,7 @@ export function CreateCourseForm() {
 								name="imageUrl"
 								type="text"
 								value={formData.imageUrl}
-								onChange={(event) => {
-									updateForm({imageUrl: event.target.value});
-								}}
+								onChange={handlerUpdate}
 							/>
 							{formData.imageUrl && errors.imageUrl && (
 								<div style={{color: "tomato"}}>{errors.imageUrl}</div>

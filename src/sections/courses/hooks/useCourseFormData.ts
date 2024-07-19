@@ -1,4 +1,4 @@
-import {useState, useCallback, useMemo} from "react";
+import {useCallback, useState} from "react";
 
 export const useCourseFormData = <T>(
 	initialState: T
@@ -9,15 +9,15 @@ export const useCourseFormData = <T>(
 } => {
 	const [formData, setFormData] = useState(initialState);
 
-	const updateForm = (value: Partial<typeof initialState>) => {
+	const updateForm = useCallback((value: Partial<T>) => {
 		setFormData((oldState) => {
 			return { ...oldState, ...value };
 		});
-	};
+	}, []);
 
-	const resetForm = () => {
+	const resetForm = useCallback(() => {
 		setFormData(initialState);
-	};
+	}, [initialState]);
 
 	return {
 		formData,
