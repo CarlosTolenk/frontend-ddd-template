@@ -18,10 +18,10 @@ export const CoursesContextProvider = ({
 	repository,
 }: React.PropsWithChildren<{ repository: CourseRepository }>) => {
 	const allCoursesGetter = new AllCoursesGetter(repository);
+	const courseCreator = new CourseCreator(repository);
 	const [courses, setCourses] = useState<Course[]>([]);
 
 	async function createCourse({ title, imageUrl }: { title: string; imageUrl: string }) {
-		const courseCreator = new CourseCreator(repository);
 		const uuid = (uuidv4 as () => string)();
 
 		await courseCreator.create(uuid, title, imageUrl);
