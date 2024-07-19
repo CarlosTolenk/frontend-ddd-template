@@ -1,6 +1,8 @@
 export class CourseImageUrl {
+
 	public static isValid(value: string): boolean {
-		return true;
+		const regexExp = /^(?:https?:\/\/)?(?:[\w]+\.)(?:\.?[\w]{2,})(\/[\w]*)*(\.[\w]+)*/;
+		return regexExp.test(value);
 	}
 
 	public static invalidMessage(value: string): string {
