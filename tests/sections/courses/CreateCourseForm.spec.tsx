@@ -29,8 +29,10 @@ describe("CreateCourseForm component", () => {
 
 
 		const successMessage = await screen.findByRole("heading", {name: /Course created/i});
+		const resetButton = screen.getByText(/Create a new course/i);
 
 		expect(successMessage).toBeInTheDocument();
+		expect(resetButton).toBeInTheDocument();
 	});
 
 	it("displays error message if title is too short", async () => {
@@ -83,5 +85,32 @@ describe("CreateCourseForm component", () => {
 		const errorMessage = await screen.findByText(`The image url [${valueImage}] is not valid`);
 
 		expect(errorMessage).toBeInTheDocument();
+	});
+
+	it("displays error message when data is not correct", async () => {
+		const valueImage = 'not a valid url'
+		const repository =  new LocalStorageCourseRepository();
+		render(
+			<CoursesContextProvider repository={repository}>
+				<CreateCourseForm />
+			</CoursesContextProvider>
+		);
+
+		const titleInput = screen.getByLabelText(/title/i);
+		userEvent.type(titleInput, "Aw");
+
+		const imageUrlInput = screen.getByLabelText(/image/i);
+		userEvent.type(imageUrlInput, "placekitten.com/500/400");
+
+		const submitButton = screen.getByText(/create course/i);
+
+		userEvent.click(submitButton);
+
+
+		const successMessage = await screen.findByRole("heading", {name: /You have an error in your form/i});
+		const resetButton = screen.getByText(/Ok, let me try again/i);
+
+		expect(successMessage).toBeInTheDocument();
+		expect(resetButton).toBeInTheDocument();
 	});
 });

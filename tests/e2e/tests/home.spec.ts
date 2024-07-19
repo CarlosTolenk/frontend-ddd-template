@@ -7,4 +7,13 @@ describe("The Home Page", () => {
 		cy.findByRole("heading", { name: /Course created/i }).should("exist");
 		cy.findByRole("heading", { name: "Awesome Hexagonal Architecture" }).should("exist");
 	});
+
+	it("error loads", () => {
+		cy.visit("/");
+		cy.findByLabelText(/Course title/i).type("Awe");
+		cy.findByLabelText(/Image URL/i).type("http://placekitten.com/500/400");
+		cy.findByText(/create course/i).click();
+
+		cy.findByRole("heading", { name: /You have an error in your form/i }).should("exist");
+	});
 });
