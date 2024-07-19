@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 
 import {CourseImageUrl} from "../../modules/courses/domain/CourseImageUrl";
 import {CourseTitle} from "../../modules/courses/domain/CourseTitle";
-import {Spinner} from "../shared/Spinner";
 
 // Hooks
 import {FormStatus, useCourseForm} from "./hooks/useCourseForm";
@@ -11,15 +10,21 @@ import {useCourseFormData} from "./hooks/useCourseFormData";
 // Components
 import {SuccessNotification} from "./components/SuccessNotification";
 import {ErrorNotification} from "./components/ErrorNotification";
+import {Spinner} from "../shared/Spinner";
 
 
-const initialState = {
+interface InitialState {
+	title: string;
+	imageUrl: string;
+}
+
+const initialState: InitialState = {
 	title: "",
 	imageUrl: "",
 };
 
 export function CreateCourseForm() {
-	const {formData, updateForm, resetForm} = useCourseFormData(initialState);
+	const {formData, updateForm, resetForm} = useCourseFormData<InitialState>(initialState);
 	const {formStatus, submitForm, resetFormStatus} = useCourseForm();
 	const [errors, setErrors] = useState(initialState);
 
